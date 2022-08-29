@@ -13,28 +13,28 @@ export const arrayPartition = (
       ),
     },
     {
-      title: 'Tomorrow',
+      title: getDateTitle(1),
       data: weatherForecastArray.filter(
         (f: {dt_txt: string}) =>
           getForecastDay(f?.dt_txt) === getCurrentDayOfTheMonth(1),
       ),
     },
     {
-      title: '3d day',
+      title: getDateTitle(2),
       data: weatherForecastArray.filter(
         (f: {dt_txt: string}) =>
           getForecastDay(f?.dt_txt) === getCurrentDayOfTheMonth(2),
       ),
     },
     {
-      title: '4th day',
+      title: getDateTitle(3),
       data: weatherForecastArray.filter(
         (f: {dt_txt: string}) =>
           getForecastDay(f?.dt_txt) === getCurrentDayOfTheMonth(3),
       ),
     },
     {
-      title: '5th day',
+      title: getDateTitle(4),
       data: weatherForecastArray.filter(
         (f: {dt_txt: string}) =>
           getForecastDay(f?.dt_txt) === getCurrentDayOfTheMonth(4),
@@ -48,6 +48,16 @@ export const getCurrentDayOfTheMonth = (number: number): string => {
   date.setDate(date.getDate() + number);
   const day = date.getDate().toString();
   return day.length === 1 ? `0${day}` : day;
+};
+
+export const getDateTitle = (number: number): string => {
+  const date = new Date();
+  date.setDate(date.getDate() + number);
+  const day = date.getDate().toString();
+  const month = date.getMonth().toString();
+  const stringDay = day.length === 1 ? `0${day}` : day;
+  const stringMonth = month.length === 1 ? `0${month}` : month;
+  return `${stringDay}.${stringMonth}`;
 };
 
 export const getForecastDay = (dateString: string): string => {
