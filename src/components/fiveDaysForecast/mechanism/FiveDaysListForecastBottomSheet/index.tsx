@@ -1,16 +1,17 @@
 import React, {useCallback, useRef, useMemo, useEffect} from 'react';
-import {View, Text, Image, SectionList} from 'react-native';
+import {View, Text, SectionList} from 'react-native';
 import styles from './styles';
 
 import BottomSheet, {BottomSheetSectionList} from '@gorhom/bottom-sheet';
 
-import {getWeatherRequest} from '../../../../../redux/actions/weather';
+import {getWeatherRequest} from '../../../../redux/actions/weather';
 
 import {useDispatch} from 'react-redux';
-import {useTypedSelector} from '../../../../../redux/reducers';
-import {ItemWeatherForecast} from '../../../../../redux/types';
+import {useTypedSelector} from '../../../../redux/reducers';
+import {ItemWeatherForecast} from '../../../../redux/types';
+import {SectionTitleProps} from '../../types';
 
-import {getHourTitle} from '../../../../../utils/helper';
+import SectionListItem from '../SectionListItem';
 
 const FiveDaysListForecastBottomSheet = ({
   isBottomSheet,
@@ -32,26 +33,13 @@ const FiveDaysListForecastBottomSheet = ({
     if (index === 0) sheetRef.current?.snapToIndex(1);
   }, []);
 
-  const ForecastItem = ({item}: ItemWeatherForecast) => {
-    const degreesCelcius = String.fromCodePoint(8451);
-    return (
-      <View style={styles.item}>
-        <Text style={styles.title}>{getHourTitle(item?.dt_txt)}</Text>
-        <View style={styles.weatherDetail}>
-          <Image
-            style={styles.weatherIcon}
-            source={{
-              uri: `https://openweathermap.org/img/w/${item?.weather[0]?.icon}.png`,
-            }}
-          />
-          <Text style={styles.temperature}>
-            {item?.main?.temp_min}
-            {degreesCelcius}
-          </Text>
-        </View>
-      </View>
-    );
+  const renderItem = ({item}: ItemWeatherForecast) => {
+    return <SectionListItem item={item} />;
   };
+
+  const renderSectionHeader = ({section: {title}}: SectionTitleProps) => (
+    <Text style={styles.header}>{title}</Text>
+  );
 
   return (
     <View style={[styles.sectionContainer, isBottomSheet && styles.paddingTop]}>
@@ -63,21 +51,19 @@ const FiveDaysListForecastBottomSheet = ({
           onChange={handleSheetChange}>
           <BottomSheetSectionList
             sections={days}
-            renderSectionHeader={({section: {title}}) => (
-              <Text style={styles.header}>{title}</Text>
-            )}
-            renderItem={({item}) => <ForecastItem item={item} />}
+            keyExtractor={item => item.dt.toString()}
+            renderSectionHeader={renderSectionHeader}
+            renderItem={renderItem}
             contentContainerStyle={styles.contentContainer}
           />
         </BottomSheet>
       ) : (
         <SectionList
           sections={days}
+          keyExtractor={item => item.dt.toString()}
           showsVerticalScrollIndicator={false}
-          renderItem={({item}) => <ForecastItem item={item} />}
-          renderSectionHeader={({section: {title}}) => (
-            <Text style={styles.header}>{title}</Text>
-          )}
+          renderItem={renderItem}
+          renderSectionHeader={renderSectionHeader}
         />
       )}
     </View>

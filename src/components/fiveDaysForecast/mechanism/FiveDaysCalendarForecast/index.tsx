@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {View} from 'react-native';
 import styles from './styles';
 
-import {getWeatherRequest} from '../../../../../redux/actions/weather';
+import {getWeatherRequest} from '../../../../redux/actions/weather';
 
 import {useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
