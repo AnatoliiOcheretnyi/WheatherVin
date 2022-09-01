@@ -2,8 +2,8 @@ import React from 'react';
 import {View} from 'react-native';
 import styles from './styles';
 
-import FiveDaysCalendarForecast from '../../mechanism/fiveDaysCalendarForecast';
-import FiveDaysListForecastBottomSheet from '../../mechanism/fiveDaysListForecastBottomSheet';
+import FiveDaysCalendarForecast from '../../mechanism/FiveDaysCalendarForecast';
+import FiveDaysListForecastBottomSheet from '../../mechanism/FiveDaysListForecastBottomSheet';
 
 const FiveDaysForecastTemplate = () => {
   return (

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
-import FiveDaysForecast from '../../components/weatherForecast/fiveDaysForecast/template/fiveDaysListForecastTemplate';
-import SpecifiedDayForecast from '../../components/weatherForecast/fiveDaysForecast/template/specifiedDayForecastTemplate';
+import FiveDaysForecast from '../../screens/FiveDaysListForecast';
+import SpecifiedDayForecast from '../../screens/SpecifiedDayForecast';
 const Stack = createNativeStackNavigator();
 
 export default function (): JSX.Element {

@@ -14,7 +14,7 @@ export interface WeatherForecast {
   weather: Array<{id: number; main: string; description: string; icon: string}>;
   clouds: {all: number};
   wind: {
-    spped: number;
+    speed: number;
     deg: number;
     gust: number;
   };
